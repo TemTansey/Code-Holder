@@ -1,0 +1,87 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class Movement : MonoBehaviour
+{
+
+    float x = 0.0f;
+    float y = 0.0f;
+    public float boundingSize = 40.0f;
+    Camera GameCamera;
+
+    
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        GameCamera = FindObjectOfType<Camera>();
+    }
+
+    
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            {
+                SceneManager.LoadScene("StartMenu");
+            }
+        }
+
+
+        Vector3 BikePosition = new Vector2(x, y);
+
+        
+
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            BikePosition = new Vector2(x, 5) * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            BikePosition = new Vector2(x, -5) * Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            BikePosition = new Vector2(-5, y) * Time.deltaTime;
+        }
+
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            BikePosition = new Vector2(5, y) * Time.deltaTime;
+        }
+
+      Vector3 NewPosition = (Vector2)GameCamera.WorldToScreenPoint(transform.position + BikePosition);
+
+        if (NewPosition.x + boundingSize > GameCamera.pixelWidth)
+        {
+            BikePosition = new Vector2(x, y);
+        }
+        else if (NewPosition.x - boundingSize < 0)
+        {
+            BikePosition = new Vector2(x, y);
+        }
+
+        if (NewPosition.y + boundingSize > GameCamera.pixelHeight)
+        {
+            BikePosition = new Vector2(x, y);
+        }
+        else if (NewPosition.y - boundingSize < 0)
+        {
+            BikePosition = new Vector2(x, y);
+        }
+
+        transform.Translate(BikePosition);
+    }
+
+   
+}
