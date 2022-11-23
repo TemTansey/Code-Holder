@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class P1Timer : MonoBehaviour
+{
+    
+    public float Timer1 = 60.0f;
+    public float Timer2 = 60.0f;
+    public Text TimerText;
+
+    void Update()
+    {
+        Timer1 -= Time.deltaTime;
+
+        if (Timer1 <= 0.0f)
+        {
+            timer1End();
+        }
+
+        TimerText.text = Timer1.ToString("Timer: ") + Timer1.ToString("F2");
+
+
+
+        Timer2 -= Time.deltaTime;
+
+        if (Timer2 <= -60.0f)
+        {
+            timer2End();
+        }
+    }
+
+    public void timer1End()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+
+    public void timer2End()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+}
